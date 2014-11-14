@@ -122,5 +122,9 @@ Result:
 
 ## 2. Deploy With Dokku/Heroku
 
+We are going to deploy a [Node.JS](http://nodejs.org/) application, that is
+a [Chat Example](https://github.com/hunterloftis/chat-example).
+
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/hunterloftis/chat-example)
 
 ## 3. Capistrano
