@@ -96,6 +96,8 @@ Enjoy:
 **Note:** [git-deploy](https://github.com/mislav/git-deploy) (almost) does the
 same thing, but probably better.
 
+### More on this hook
+
 One may want to send emails to the person who just deployed. That is why
 `author_name` and `author_email` are retrieved.
 
@@ -105,6 +107,8 @@ Let's try to change the author's email:
     git add !$
     GIT_AUTHOR_EMAIL=foo@example.org git commit -m "Surround title with html tags"
     git push production master
+
+### Deploying to another branch
 
 We can deploy another branch:
 
@@ -126,5 +130,22 @@ We are going to deploy a [Node.JS](http://nodejs.org/) application, that is
 a [Chat Example](https://github.com/hunterloftis/chat-example).
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/hunterloftis/chat-example)
+
+### Heroku Toolbelt
+
+Install the [Heroku Toolbelt](https://toolbelt.heroku.com/).
+
+Then:
+
+    heroku login
+    heroku git:clone -a <heroku-app-id>
+    cd !$
+
+Make changes, then deploy:
+
+    git add .
+    git commit -m "Make it better"
+    git push heroku master
+
 
 ## 3. Capistrano
