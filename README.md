@@ -183,7 +183,7 @@ Deploy:
 
     git push deploy master
 
-Browse `http://<your-app-name>.dokku.clermontech.org`.
+Browse `http://your-app-name.dokku.clermontech.org`.
 
 
 ## 4. Capistrano
