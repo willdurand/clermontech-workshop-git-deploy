@@ -22,7 +22,7 @@ In the first folder, let's create an app:
 
 Let's add a new remote that points to the `production` server:
 
-    git remote add -t master production /absolute/path/to/remote-server/www
+    git remote add production /absolute/path/to/remote-server/www
 
 Now, we are going to configure the remote server.
 
@@ -64,7 +64,7 @@ while read oldrev newrev ref
 do
     branch=`echo $ref | cut -d/ -f3`
 
-    if [ "$branch"  == "master" ] ; then
+    if [ "$branch" ] ; then
         notify "$branch"
 
         cd ..
@@ -88,12 +88,15 @@ This hook is all you need to perform steps at "deploy time".
 Let's test it!
 
     cd ../../local-server/app
-    git push production
+    git push production master
 
 Enjoy:
 
     ls -l /absolute/path/to/remote-server/www
     tail /tmp/deploy-app.log
+
+**Note:** [git-deploy](https://github.com/mislav/git-deploy) (almost) does the
+same thing, but probably better.
 
 ### 2. Deploy with Dokku/Heroku
 
