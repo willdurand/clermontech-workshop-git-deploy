@@ -165,10 +165,6 @@ Clone the Chat Example:
 
     git clone git://github.com/hunterloftis/chat-example.git
 
-Deploy it with Dokku: [How To Use the Dokku One-Click Install Image to Deploy
-your
-App](https://www.digitalocean.com/community/tutorials/how-to-use-the-dokku-one-click-install-image-to-deploy-your-app).
-
 Configure SSH to use the provided keys:
 
 ```
