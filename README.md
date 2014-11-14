@@ -169,6 +169,43 @@ Deploy it with Dokku: [How To Use the Dokku One-Click Install Image to Deploy
 your
 App](https://www.digitalocean.com/community/tutorials/how-to-use-the-dokku-one-click-install-image-to-deploy-your-app).
 
+If you are experiencing DNS issues (say you are not able to browse
+http://dokku.clermontech.org, it is most probably due to a DNS propagation
+issue. You can fix it by adding a new entry to your `/etc/hosts` file:
+
+```
+178.62.80.95 dokku.clermontech.org
+```
+
+Configure SSH to use the provided keys:
+
+```
+Host dokku.clermontech.org
+Hostname 178.62.80.95
+User dokku
+PreferredAuthentications publickey
+IdentityFile    ~/.ssh/clermontech_git_rsa
+```
+
+Now, let's add a new remote for the Dokku server:
+
+    git remote add deploy dokku@dokku.clermontech.org:your-app-name
+
+In this case, `your-app-name` is my application name. Put whatever you want
+here. If you are still experiencing DNS issues, edit your `/etc/hosts` file
+again:
+
+```
+178.62.80.95 dokku.clermontech.org <your-app-name>.dokku.clermontech.org
+```
+
+Deploy:
+
+    git push deploy master
+
+Browse `http://<your-app-name>.dokku.clermontech.org`.
+
+
 ## 4. Capistrano
 
 [Capistrano](http://capistranorb.com/), a remote server automation and
