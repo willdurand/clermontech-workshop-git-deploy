@@ -96,6 +96,29 @@ Enjoy:
 **Note:** [git-deploy](https://github.com/mislav/git-deploy) (almost) does the
 same thing, but probably better.
 
+One may want to send emails to the person who just deployed. That is why
+`author_name` and `author_email` are retrieved.
+
+Let's try to change the author's email:
+
+    echo "<h1>Hello, World</h1>" > index.html
+    git add !$
+    GIT_AUTHOR_EMAIL=foo@example.org git commit -m "Surround title with html tags"
+    git push production master
+
+We can deploy another branch:
+
+    git checkout -b feat-content
+    echo "<p>content</p>" >> index.html
+    git add !$
+    git commit -m "add content"
+    git push production feat
+
+Result:
+
+    tail /tmp/deploy-app.log
+    cat /absolute/path/to/remote-server/www/index.html
+
 
 ## 2. Deploy With Dokku/Heroku
 
