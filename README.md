@@ -1,6 +1,14 @@
 Clermont'ech Workshop Git
 =========================
 
+The aim of this (very short) workshop is to learn various ways to deploy with
+Git. We are going to cover:
+
+* [Deploy Using Git Push/Hook](#1-deploy-using-git-pushhook)
+* [Deploy With Heroku](#2-deploy-with-heroku)
+* [Deploy With Dokku](#3-deploy-with-dokku)
+* [Capistrano](#4-capistrano)
+
 
 ## 1. Deploy Using Git Push/Hook
 
