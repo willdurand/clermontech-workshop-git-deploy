@@ -230,3 +230,69 @@ Deploy:
 Verify:
 
     ls -l /path/to/remote-server/capwww
+
+
+### Help
+
+Need help with all these Capistrano tasks:
+
+    cap -T
+
+### Manually Start The Application
+
+Manually start the application:
+
+    cd /path/to/remote-server/capwww/current
+    npm start
+
+Doh! Bad luck, it does not work.
+
+Let's create a Capistrano task to install NPM dependencies:
+
+``` ruby
+namespace :nodejs do
+
+  desc "Install modules non-globally"
+  task :npm_install do
+    on roles(:app) do
+      execute "cd #{current_path} && /usr/bin/env npm install"
+    end
+  end
+
+end
+```
+
+Tell Capistrano to execute it after each deploy:
+
+``` ruby
+namespace :deploy do
+  # ...
+
+  before :restart, 'nodejs:npm_install'
+end
+```
+
+Deploy again.
+
+### Automatically Start The Application
+
+Let's add a task to automatically start the application:
+
+``` ruby
+namespace :nodejs do
+  # ...
+
+  desc 'Start app'
+  task :start do
+    on roles(:app) do
+      execute "cd #{current_path} && /usr/bin/env node index.js &"
+    end
+  end
+
+end
+```
+
+Start your application:
+
+    cap production nodejs:start
+
