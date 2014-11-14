@@ -14,8 +14,10 @@ In the first folder, let's create an app:
 
     cd local-server
     mkdir app
+    cd !$
     git init
     echo "Hello, World" > index.html
+    git add index.html
     git commit -m "Initial commit"
 
 Let's add a new remote that points to the `production` server:
@@ -23,6 +25,11 @@ Let's add a new remote that points to the `production` server:
     git remote add -t master production /absolute/path/to/remote-server/www
 
 Now, we are going to configure the remote server.
+
+    cd ../../remote-server
+    mkdir www
+    cd !$
+    git init
 
 Let's edit the `.git/config` file, adding the content below to allow push on the
 current branch:
@@ -72,14 +79,21 @@ do
 done
 ```
 
+Make it executable:
+
+    chmod +x .git/hooks/post-receive
+
 This hook is all you need to perform steps at "deploy time".
 
 Let's test it!
 
-    cd ../local-server
+    cd ../../local-server/app
     git push production
 
-Enjoy.
+Enjoy:
+
+    ls -l /absolute/path/to/remote-server/www
+    tail /tmp/deploy-app.log
 
 ### 2. Deploy with Dokku/Heroku
 
