@@ -124,10 +124,10 @@ Result:
     cat /absolute/path/to/remote-server/www/index.html
 
 
-## 2. Deploy With Dokku/Heroku
+## 2. Deploy With Heroku
 
-We are going to deploy a [Node.JS](http://nodejs.org/) application, that is
-a [Chat Example](https://github.com/hunterloftis/chat-example).
+We are going to deploy a [Node.JS](http://nodejs.org/) application, that is a
+[Chat Example](https://github.com/hunterloftis/chat-example).
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/hunterloftis/chat-example)
 
@@ -148,4 +148,17 @@ Make changes, then deploy:
     git push heroku master
 
 
-## 3. Capistrano
+## 3. Deploy With Dokku
+
+[Dokku](https://github.com/progrium/dokku), Docker powered mini-Heroku in around
+100 lines of Bash.
+
+Clone the Chat Example:
+
+    git clone git://github.com/hunterloftis/chat-example.git
+
+Deploy it with Dokku.
+
+## 4. Capistrano
+
+...
