@@ -2,9 +2,7 @@ Clermont'ech Workshop Git
 =========================
 
 
-## Deploying with Git
-
-### 1. Deploy using push/hook
+## 1. Deploy Using Git Push/Hook
 
 We need two separate folders to simulate two different servers:
 
@@ -98,6 +96,8 @@ Enjoy:
 **Note:** [git-deploy](https://github.com/mislav/git-deploy) (almost) does the
 same thing, but probably better.
 
-### 2. Deploy with Dokku/Heroku
 
-### 3. Capistrano
+## 2. Deploy With Dokku/Heroku
+
+
+## 3. Capistrano
