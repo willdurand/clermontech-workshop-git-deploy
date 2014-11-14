@@ -183,7 +183,7 @@ Then, capify your application:
     cd chat-example
     cap install
 
-Edit `config/deploy.rb':
+Edit `config/deploy.rb`:
 
 ``` diff
 -set :application, 'my_app_name'
