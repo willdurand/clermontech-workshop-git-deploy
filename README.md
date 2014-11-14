@@ -175,7 +175,7 @@ PreferredAuthentications publickey
 IdentityFile    ~/.ssh/clermontech_git_rsa
 ```
 
-Now, let's add a new remote for the Dokku server:
+Now, let's add a new remote pointing to the Dokku server:
 
     git remote add deploy dokku@dokku.clermontech.org:your-app-name
 
