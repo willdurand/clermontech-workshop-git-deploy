@@ -165,8 +165,68 @@ Clone the Chat Example:
 
     git clone git://github.com/hunterloftis/chat-example.git
 
-Deploy it with Dokku.
+Deploy it with Dokku: [How To Use the Dokku One-Click Install Image to Deploy
+your
+App](https://www.digitalocean.com/community/tutorials/how-to-use-the-dokku-one-click-install-image-to-deploy-your-app).
 
 ## 4. Capistrano
 
-...
+[Capistrano](http://capistranorb.com/), a remote server automation and
+deployment tool written in Ruby.
+
+Install it:
+
+    gem install capistrano
+
+Then, capify your application:
+
+    cd chat-example
+    cap install
+
+Edit `config/deploy.rb':
+
+``` diff
+-set :application, 'my_app_name'
+-set :repo_url, 'git@example.com:me/my_repo.git'
++set :application, 'chat-example'
++set :repo_url, 'file:///absolute/path/to/chat-example/.git'
+
+-# set :deploy_to, '/var/www/my_app'
++set :deploy_to, "/absolute/path/to/remote-server/capwww"
+```
+
+Edit `config/deploy/production.rb`:
+
+``` diff
+-role :app, %w{deploy@example.com}
+-role :web, %w{deploy@example.com}
+-role :db,  %w{deploy@example.com}
++role :app, %w{username@localhost}
++role :web, %w{username@localhost}
+
+-server 'example.com', user: 'deploy', roles: %w{web app}, my_property: :my_value
++server 'localhost', user: 'username', roles: %w{web app}
+
+-#  set :ssh_options, {
+-#    keys: %w(/home/rlisowski/.ssh/id_rsa),
+-#    forward_agent: false,
+-#    auth_methods: %w(password)
+-#  }
++set :ssh_options, {
++  keys: %w(/absolute/path/to/your/.ssh/identity-file),
++  forward_agent: false,
++  auth_methods: %w(publickey)
++}
+```
+
+Check your settings:
+
+    cap production deploy:check
+
+Deploy:
+
+    cap production deploy
+
+Verify:
+
+    ls -l /path/to/remote-server/capwww
