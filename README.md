@@ -179,9 +179,6 @@ Now, let's add a new remote pointing to the Dokku server:
 
     git remote add deploy dokku@dokku.clermontech.org:your-app-name
 
-In this case, `your-app-name` is my application name. Put whatever you want
-here.
-
 Deploy:
 
     git push deploy master
