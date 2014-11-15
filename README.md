@@ -124,7 +124,7 @@ We can deploy another branch:
     echo "<p>content</p>" >> index.html
     git add !$
     git commit -m "add content"
-    git push production feat
+    git push production feat-content
 
 Result:
 
