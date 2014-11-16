@@ -50,6 +50,7 @@ Now, let's create a `post-receive` hook with the following content:
 ``` bash
 #!/usr/bin/env bash
 
+GIT_BIN=`/usr/bin/env -i git`
 LOGFILE="/tmp/deploy-app.log"
 
 function notify()
@@ -74,11 +75,12 @@ do
         notify "$branch"
 
         cd ..
-        env -i git checkout $branch &> /dev/null
-        env -i git reset --hard &> /dev/null
 
-        author_name=`env -i git log -1 --format=format:%an HEAD`
-        author_email=`env -i git log -1 --format=format:%ae HEAD`
+        $GIT_BIN checkout $branch &> /dev/null
+        $GIT_BIN reset --hard &> /dev/null
+
+        author_name=`$GIT_BIN log -1 --format=format:%an HEAD`
+        author_email=`$GIT_BIN log -1 --format=format:%ae HEAD`
 
         log "$branch" "$author_name" "$author_email"
     fi
