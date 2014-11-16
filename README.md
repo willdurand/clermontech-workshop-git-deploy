@@ -169,10 +169,10 @@ Configure SSH to use the provided keys:
 
 ```
 Host dokku.clermontech.org
-Hostname 178.62.80.95
-User dokku
-PreferredAuthentications publickey
-IdentityFile    ~/.ssh/clermontech_git_rsa
+  Hostname 178.62.80.95
+  User dokku
+  PreferredAuthentications publickey
+  IdentityFile    ~/.ssh/clermontech_git_rsa
 ```
 
 Now, let's add a new remote pointing to the Dokku server:
