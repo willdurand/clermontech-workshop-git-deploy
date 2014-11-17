@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+readonly LOGFILE="/tmp/deploy-app.log"
+
+function notify()
+{
+    echo "Hi! I am your Git deployer, and I am deploying branch \"$1\" right now :-)"
+}
+
+function log()
+{
+    [[ -f "$LOGFILE" ]] || touch "$LOGFILE"
+
+    echo "$2 ($3) successfully deploy branch: $1" >> "$LOGFILE"
+}
+
+function main()
+{
+    # STDIN: oldrev newrev ref
+    while read _ newrev ref
+    do
+        local branch=$(echo "$ref" | cut -d/ -f3)
+
+        # Abort if there's no update, or in case the branch is deleted
+        if [[ -z "${newrev//0}" ]] ; then
+            exit
+        fi
+
+        if [[ "$branch" ]] ; then
+            notify "$branch"
+
+            cd ..
+            unset GIT_DIR
+
+            git checkout "$branch" &> /dev/null
+            git reset --hard &> /dev/null
+
+            local author_name=$(git log -1 --format=format:%an HEAD)
+            local author_email=$(git log -1 --format=format:%ae HEAD)
+
+            log "$branch" "$author_name" "$author_email"
+        fi
+    done
+}
+
+main "$@"
