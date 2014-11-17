@@ -50,8 +50,9 @@ Now, let's create a `post-receive` hook with the following content:
 ``` bash
 #!/usr/bin/env bash
 
-GIT_BIN=`/usr/bin/env -i git`
-LOGFILE="/tmp/deploy-app.log"
+set -eo pipefail
+
+readonly LOGFILE="/tmp/deploy-app.log"
 
 function notify()
 {
@@ -60,31 +61,41 @@ function notify()
 
 function log()
 {
-    if [ ! -f "$LOGFILE" ] ; then
-        touch "$LOGFILE"
-    fi
+    [[ -f "$LOGFILE" ]] || touch "$LOGFILE"
 
     echo "$2 ($3) successfully deploy branch: $1" >> "$LOGFILE"
 }
 
-while read oldrev newrev ref
-do
-    branch=`echo $ref | cut -d/ -f3`
+function main()
+{
+    # STDIN: oldrev newrev ref
+    while read _ newrev ref
+    do
+        local branch=$(echo "$ref" | cut -d/ -f3)
 
-    if [ "$branch" ] ; then
-        notify "$branch"
+        # Abort if there's no update, or in case the branch is deleted
+        if [[ -z "${newrev//0}" ]] ; then
+            exit
+        fi
 
-        cd ..
+        if [[ "$branch" ]] ; then
+            notify "$branch"
 
-        $GIT_BIN checkout $branch &> /dev/null
-        $GIT_BIN reset --hard &> /dev/null
+            cd ..
+            unset GIT_DIR
 
-        author_name=`$GIT_BIN log -1 --format=format:%an HEAD`
-        author_email=`$GIT_BIN log -1 --format=format:%ae HEAD`
+            git checkout "$branch" &> /dev/null
+            git reset --hard &> /dev/null
 
-        log "$branch" "$author_name" "$author_email"
-    fi
-done
+            local author_name=$(git log -1 --format=format:%an HEAD)
+            local author_email=$(git log -1 --format=format:%ae HEAD)
+
+            log "$branch" "$author_name" "$author_email"
+        fi
+    done
+}
+
+main "$@"
 ```
 
 Make it executable:
