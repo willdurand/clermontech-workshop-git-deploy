@@ -82,7 +82,7 @@ function main()
             notify "$branch"
 
             cd ..
-            unset GIT_DIR
+            unset GIT_DIR GIT_WORK_TREE
 
             git checkout "$branch" &> /dev/null
             git reset --hard &> /dev/null
